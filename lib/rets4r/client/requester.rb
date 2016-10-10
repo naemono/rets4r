@@ -1,5 +1,6 @@
 #require 'rets4r'
 require 'rets4r/client/exceptions'
+require 'rets4r/version'
 
 module RETS4R
   class Client

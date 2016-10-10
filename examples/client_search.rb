@@ -7,7 +7,6 @@
 #############################################################################################
 
 $:.unshift 'lib'
-require 'active_support/core_ext/hash'
 require 'yaml'
 
 require 'rets4r'
@@ -15,7 +14,7 @@ require 'rets4r'
 # Settings
 settings_file = File.expand_path(File.join(File.dirname(__FILE__), "settings.yml"))
 ENV['LISTING_ENV'] ||= 'development'
-settings = YAML.load_file(settings_file)[ENV['LISTING_ENV']].symbolize_keys
+settings = Hash[YAML.load_file(settings_file)[ENV['LISTING_ENV']].map{|(k,v)| [k.to_sym,v]}]
 
 #############################################################################################
 
@@ -33,10 +32,8 @@ if login_result.success?
     options = {'Limit' => settings[:limit]}
 
     client.search(settings[:resource], settings[:class], settings[:query], options) do |result|
-        result.response.each do |row|
-            puts row.inspect
-            puts
-        end
+          puts result.inspect
+          puts
     end
 
     client.logout

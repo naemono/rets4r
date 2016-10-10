@@ -10,3 +10,4 @@ coverage.data
 pkg
 rdoc
 .rvmrc
+examples/settings.yml
