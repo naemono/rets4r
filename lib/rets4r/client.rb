@@ -283,7 +283,7 @@ module RETS4R
         # This probably means that there was an error.
         # Response parser will likely raise an exception.
         # TODO: test this
-        rr = ResponseDocument.safe_parse(response.body).validate!.to_transaction
+        rr = ResponseDocument::Base.safe_parse(response.body).validate!.to_transaction
         return rr
       elsif response['content-type'] && response['content-type'].include?('multipart/parallel')
         content_type = process_content_type(response['content-type'])
